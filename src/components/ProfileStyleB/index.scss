@@ -1,0 +1,29 @@
+.profileStyleB {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+  img.avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    border-radius: 100%;
+  }
+  p.authorTag {
+    color: rgba(0, 0, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0px;
+    font-weight: 600;
+  }
+  p.primary {
+    margin-top: 0px;
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  p.secondary {
+    margin-top: 0px;
+  }
+  a {
+    color:rgba(0, 0, 0, 0.4)
+  }
+}

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Container} from 'react-bootstrap'
 import ProfileStyleA from './components/ProfileStyleA'
+import ProfileStyleB from './components/ProfileStyleB'
 import NaggingList from './components/NaggingList'
 import SingalNagging from './components/SingalNagging'
 import {
@@ -17,6 +18,7 @@ let frame = (<React.StrictMode>
       <Switch>
         <Route path='/naggings/:uuid'>
           <SingalNagging />
+          <ProfileStyleB />
         </Route>
         <Route path='/'> {/* Homepage */}
           <ProfileStyleA />
