@@ -6,13 +6,20 @@ import ProfileStyleA from './components/ProfileStyleA'
 import ProfileStyleB from './components/ProfileStyleB'
 import NaggingList from './components/NaggingList'
 import SingalNagging from './components/SingalNagging'
+import { injectStyle } from "react-toastify/dist/inject-style"
+import { ToastContainer } from "react-toastify"
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 
+if (typeof window !== "undefined") {
+  injectStyle();
+}
+
 let frame = (<React.StrictMode>
+  <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
   <Container>
     <Router>
       <Switch>

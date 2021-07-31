@@ -4,6 +4,7 @@ import { gql } from "@apollo/client"
 import apollo from '../../extentions/apollo'
 import { Link } from "react-router-dom";
 import './index.scss'
+import { toast } from "react-toastify"
 
 class ProfileStyleB extends React.Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class ProfileStyleB extends React.Component {
     }
   }
   componentDidMount() {
-    console.log('componentDidMount')
     // Fetch naggings list
     apollo.query({ query: gql`
       query user {
@@ -32,9 +32,9 @@ class ProfileStyleB extends React.Component {
         }
       }
     `}).then(res => this.setState({user: res.data.user}))
+    .catch(e => toast(`Error occured when fetching profile: ${e.message}`))
   }
   render() {
-    console.log(this.state.user.avatar)
     return (
       <Row className='justify-content-md-center'>
         <Col lg="6" className='profileStyleB'>

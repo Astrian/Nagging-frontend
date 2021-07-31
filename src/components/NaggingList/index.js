@@ -4,7 +4,8 @@ import apollo from '../../extentions/apollo'
 import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './index.scss'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 class NaggingList extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class NaggingList extends React.Component {
     this.state = { list: [], listNext: false, loading: true, pager: 0 }
   }
   componentDidMount() {
-    // Fetch naggings list
     this.fetchNaggings()
   }
   render() {
@@ -51,16 +51,19 @@ class NaggingList extends React.Component {
       }
       `}).then(res => {
         this.setState({ list: list.concat(res.data.naggings.list), listNext: res.data.naggings.next, loading: false, pager: pager + 1 })
+      }).catch(e => {
+        this.setState({ loading: false })
+        toast(`Error occured when fetching naggings: ${e.message}`) 
       })
     }
-    return (
+    return (<>
       <Row className='justify-content-md-center'>
         <Col lg="6" className='list'>
           {naggingList}
           {next}
         </Col>
-      </Row>   
-    )
+      </Row>
+    </>)
   }
 }
 

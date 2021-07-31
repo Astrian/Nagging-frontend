@@ -3,6 +3,7 @@ import {Row, Col} from 'react-bootstrap'
 import { gql } from "@apollo/client"
 import apollo from '../../extentions/apollo'
 import './index.scss'
+import { toast } from "react-toastify"
 
 class ProfileStyleA extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class ProfileStyleA extends React.Component {
     }
   }
   componentDidMount() {
-    console.log('componentDidMount')
     // Fetch naggings list
     apollo.query({ query: gql`
       query user {
@@ -31,9 +31,9 @@ class ProfileStyleA extends React.Component {
         }
       }
     `}).then(res => this.setState({user: res.data.user}))
+    .catch(e => { toast(`Error occured when fetching naggings: ${e.message}`) })
   }
   render() {
-    console.log(this.state.user.avatar)
     return (
       <Row className='justify-content-md-center'>
         <Col lg="4" className='profile'>
