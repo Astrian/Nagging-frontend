@@ -3,7 +3,8 @@ import { gql } from "@apollo/client"
 import apollo from '../extentions/apollo'
 
 class NaggingList extends React.Component {
-  render() {
+  componentDidMount() {
+    // Fetch naggings list
     apollo.query({ query: gql`
       query naggings{
         naggings {
@@ -15,7 +16,9 @@ class NaggingList extends React.Component {
           next
         }
       }
-    `}).then(res => this.setState({list: res.data}))
+    `}).then(res => this.setState({ list: res.data.naggings.list, listNext: res.data.naggings.next }))
+  }
+  render() {
     return (<p>Hello</p>)
   }
 }
