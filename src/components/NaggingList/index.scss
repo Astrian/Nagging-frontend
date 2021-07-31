@@ -15,12 +15,16 @@ div.naggingCell {
 }
 
 div.next {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-  font-size: 14px;
+  margin-bottom: 50px;
+  font-size: 12px;
+  .nextTrigger{
+    cursor: pointer;
+  }
 }
 div.next.end {
   color: rgba(0, 0, 0, 0.4);
+  cursor: default;
+}
+div.next.loading {
+  color: rgba(0, 0, 0, 0);
 }
