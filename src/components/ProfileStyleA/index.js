@@ -12,7 +12,8 @@ class ProfileStyleA extends React.Component {
       avatar: `${process.env.PUBLIC_URL}/defaultavatar.jpg`,
       fullname: `John Appleseed`,
       username: `Username`,
-      bio: ``
+      bio: ``,
+      naggingCount: 0
     }
   }
   componentDidMount() {
@@ -25,7 +26,8 @@ class ProfileStyleA extends React.Component {
           username,
           fullname,
           bio,
-          avatar
+          avatar,
+          naggingCount
         }
       }
     `}).then(res => this.setState({user: res.data.user}))
@@ -36,8 +38,9 @@ class ProfileStyleA extends React.Component {
       <Row className='justify-content-md-center'>
         <Col lg="4" className='profile'>
           <img className='avatar' alt='User avatar' src={this.state.user.avatar} />
-          <p className='fullname'>{this.state.user.fullname}</p>
-          <p className='bio'>{this.state.user.bio || `Yet another new Nagging space.`}</p>
+          <p className='primary'>{this.state.user.fullname}</p>
+          <p className='secondary'>{this.state.user.bio || `Yet another new Nagging space.`}</p>
+          <p className='secondary'>{this.state.user.naggingCount} naggings</p>
         </Col>
       </Row>  
     )

@@ -9,12 +9,13 @@
     width: 150px;
     margin-bottom: 20px;
   }
-  p.fullname {
+  p.primary {
     font-size: 30px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
   }
-  p.bio {
+  p.secondary {
     font-size: 14px;
-    color: rgba(0, 0, 0, .4)
+    color: rgba(0, 0, 0, .4);
+    margin-bottom: 0px;
   }
 }
