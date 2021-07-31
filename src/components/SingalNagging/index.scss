@@ -1,0 +1,21 @@
+.singalNagging {
+  margin-top: 80px;
+  .content {
+    font-size: 40px;
+  }
+  time {
+    color: rgba(0,0,0,0.4)
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .singalNagging {
+    margin-top: 40px;
+    .content {
+      font-size: 25px;
+    }
+    .time {
+      font-size: 14px;
+    }
+  }
+}
