@@ -7,7 +7,7 @@ class ProfileStyleA extends React.Component {
     super(props)
     this.state = {}
     this.state.user = {
-      avatar: ''
+      avatar: `${process.env.PUBLIC_URL}/defaultavatar.jpg`
     }
   }
   componentDidMount() {
@@ -29,7 +29,7 @@ class ProfileStyleA extends React.Component {
     console.log(this.state.user.avatar)
     return (
       <div className='profile'>
-        <img className='avatar' alt='User avatar' src={this.state.user ? this.state.user.avatar : ''} />
+        <img className='avatar' alt='User avatar' src={this.state.user ? this.state.user.avatar : `${process.env.PUBLIC_URL}/defaultavatar.jpg`} />
       </div>  
     )
   }
