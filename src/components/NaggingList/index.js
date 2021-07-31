@@ -4,10 +4,7 @@ import apollo from '../../extentions/apollo'
 import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './index.scss'
-import {
-  BrowserRouter as Router,
-  Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class NaggingList extends React.Component {
   constructor(props) {
@@ -57,14 +54,12 @@ class NaggingList extends React.Component {
       })
     }
     return (
-      <Router>
-        <Row className='justify-content-md-center'>
-          <Col lg="6" className='list'>
-            {naggingList}
-            {next}
-          </Col>
-        </Row>  
-      </Router> 
+      <Row className='justify-content-md-center'>
+        <Col lg="6" className='list'>
+          {naggingList}
+          {next}
+        </Col>
+      </Row>   
     )
   }
 }
