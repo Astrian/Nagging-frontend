@@ -1,0 +1,20 @@
+.preference {
+  margin-top: 50px;
+  .head {
+    font-size: 50px;
+    margin-bottom: 30px;
+  }
+  .section {
+    button {
+      margin-bottom: 20px;
+    }
+    margin-bottom: 30px;
+    .title {
+      font-size: 25px;
+      margin-bottom: 0px;
+    }
+    .description {
+      color: rgba(0,0,0,0.4);
+    }
+  }
+}

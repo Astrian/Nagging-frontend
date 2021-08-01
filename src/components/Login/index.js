@@ -17,7 +17,7 @@ function Login() {
       toast(`Logged in.`)
       history.push("/")
     }
-  } )
+  })
   const submitForm = e => {
     e.preventDefault()
     const username = e.target[0].value

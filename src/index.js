@@ -6,7 +6,7 @@ import ProfileStyleA from './components/ProfileStyleA'
 import ProfileStyleB from './components/ProfileStyleB'
 import NaggingList from './components/NaggingList'
 import SingalNagging from './components/SingalNagging'
-import Postbox from './components/Postbox'
+import Composebox from './components/Composebox'
 import Login from './components/Login'
 import { injectStyle } from "react-toastify/dist/inject-style"
 import { ToastContainer } from "react-toastify"
@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 import { ApolloProvider } from '@apollo/client'
 import client from './extentions/apollo'
+import Preference from './components/Preference'
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -28,16 +29,17 @@ let frame = (<React.StrictMode>
     <Container>
       <Router>
         <Switch>
-          <Route path='/naggings/:uuid' exact>
+          <Route path='/preference'><Preference></Preference></Route> {/* Preference */}
+          <Route path='/naggings/:uuid' exact> {/* Nagging Detail */}
             <SingalNagging />
             <ProfileStyleB />
           </Route>
-          <Route path='/Login'>
+          <Route path='/Login'> {/* Login page */}
             <Login />
           </Route>
           <Route path='/' exact> {/* Homepage */}
             <ProfileStyleA />
-            <Postbox />
+            <Composebox />
             <NaggingList />
           </Route>
         </Switch>

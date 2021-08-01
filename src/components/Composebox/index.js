@@ -13,7 +13,7 @@ const POST = gql`mutation newNagging($content: String!){
   }
 }`
 
-function Postbox() {
+function Composebox() {
   const [cookies] = useCookies(['session'])
   const text = React.useState(0)
   const focusOn = e => {
@@ -49,4 +49,4 @@ function Postbox() {
   else return ''
 }
 
-export default Postbox
+export default Composebox
