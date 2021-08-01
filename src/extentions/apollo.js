@@ -5,6 +5,7 @@ import {
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GQLSERVER,
+  credentials: 'include',
   cache: new InMemoryCache()
 })
 
