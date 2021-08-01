@@ -6,6 +6,7 @@ import ProfileStyleA from './components/ProfileStyleA'
 import ProfileStyleB from './components/ProfileStyleB'
 import NaggingList from './components/NaggingList'
 import SingalNagging from './components/SingalNagging'
+import Postbox from './components/Postbox'
 import Login from './components/Login'
 import { injectStyle } from "react-toastify/dist/inject-style"
 import { ToastContainer } from "react-toastify"
@@ -36,6 +37,7 @@ let frame = (<React.StrictMode>
           </Route>
           <Route path='/' exact> {/* Homepage */}
             <ProfileStyleA />
+            <Postbox />
             <NaggingList />
           </Route>
         </Switch>
