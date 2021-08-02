@@ -21,6 +21,10 @@ const GET_PROFILE = gql`query user {
   }
 }`
 
+const CHANGE_PASSWORD = gql`mutation changePassword($oriPwd: String!, $newPwd: String!){
+  changePassword(oriPwd: $oriPwd, newPwd: $newPwd)
+}`
+
 function Preference() {
   let history = useHistory()
   const [cookies] = useCookies(['session'])
@@ -44,6 +48,12 @@ function Preference() {
       toast(`Profile edited`)
     }
   })
+  const [changePasswordOps] = useMutation(CHANGE_PASSWORD, {
+    onError: e => toast(`Cannot change your password: ${e.message}`),
+    onCompleted: e => {
+      toast(`Password changed.`)
+    }
+  })
 
   const submitProfile = e => {
     e.preventDefault()
@@ -53,6 +63,15 @@ function Preference() {
       bio: e.target[2].value,
     }
     editProfile({ variables })
+  }
+  const changePassword = e => {
+    e.preventDefault()
+    const variables ={
+      oriPwd: e.target[0].value,
+      newPwd: e.target[1].value
+    }
+    if (!variables.oriPwd || !variables.newPwd) return toast(`You must confirm your original password, and set a new password to continue.`)
+    changePasswordOps({ variables })
   }
 
   if (cookies.session) {
@@ -85,7 +104,7 @@ function Preference() {
           <div className='section'> { /* Change password */}
             <p className='title'>Change password</p>
             <p className='description'>Keep your account safe by change your password frequently.</p>
-            <Form onSubmit={e => {}}>
+            <Form onSubmit={changePassword}>
               <Form.Group className="mb-3" controlId="passwordOld">
                 <Form.Label>Original password</Form.Label>
                 <Form.Control type="password" />
@@ -105,8 +124,8 @@ function Preference() {
             <p className='description'>Logout from this browser or all of your sessions.</p>
             <p>You can logout from this browser here. If you are using a sharing computer, please logout from here after complete your operation.</p>
             <Button>Logout From this browser</Button>
-            <p>If you are suspecting that someone has hacked into your account, please revoke all of your login session. Re-login is required in this browser after revoke.</p>
-            <Button>Revoke all session, and logout from this browser</Button>
+            <p>If you are suspecting that someone has hacked into your account, please revoke all of your login sessions. Re-login is required in this browser after revoke.</p>
+            <Button>Revoke all sessions, and logout from this browser</Button>
           </div>
         </Col>
       </Row>
