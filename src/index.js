@@ -71,7 +71,7 @@ let frame = (<React.StrictMode>
         </Switch>
         <Row className='justify-content-md-center'>
           <Col lg="6" className='footer'>
-            Powered by <a href='https://github.com/Astrian/Nagging-backend'>Nagging project</a>.
+            Powered by <a href='https://github.com/Astrian/Nagging-backend' target='_blank'>Project Nagging</a>.
           </Col>
         </Row>
       </Router>
