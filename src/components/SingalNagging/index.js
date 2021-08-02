@@ -7,6 +7,7 @@ import './index.scss'
 import { toast } from "react-toastify"
 import { useHistory } from 'react-router-dom'
 import {Helmet} from "react-helmet"
+import ReactMarkdown from 'react-markdown'
 
 const FETCH_NAGGING = gql`query singalNagging($uuid: String!) {
   signalNagging(uuid: $uuid) {
@@ -68,7 +69,7 @@ function SingalNagging() {
     </Helmet>
     <Row className='justify-content-md-center'>
       <Col xl="6" className='singalNagging'>
-        <p className='content'>{content[0]}</p>
+        <div className='content'><ReactMarkdown>{content[0]}</ReactMarkdown></div>
         <div className='secondary'><Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment> {deleteBtn}</div>
       </Col>
     </Row>

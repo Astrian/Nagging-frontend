@@ -5,6 +5,7 @@ import Moment from 'react-moment'
 import './index.scss'
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import ReactMarkdown from 'react-markdown'
 
 const FETCH_NAGGINGS = gql`query naggings($pager: Int){
   naggings(pager: $pager) {
@@ -36,7 +37,7 @@ function NaggingList() {
     return (
       <div className='naggingCell' key={nagging.uuid}>
         <Link className='timestamp' to={`/naggings/${nagging.uuid}`}><Moment fromNow>{nagging.time}</Moment></Link>
-        <div className='content'>{nagging.content}</div>
+        <div className='content'><ReactMarkdown>{nagging.content}</ReactMarkdown></div>
       </div>
     )
   })
