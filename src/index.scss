@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'RobotoMono';
+  src: local('Roboto Mono'), url('./fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoMonoItaliy';
+  src: local('Roboto Mono'), url('./fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+.container {
+  font-family: 'RobotoMono';
+}
+
 .footer {
   margin-bottom: 80px;
   font-size: 14px;
