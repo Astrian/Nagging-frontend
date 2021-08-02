@@ -53,7 +53,7 @@ function SingalNagging() {
       history.push("/")
     }
   })
-  const session = window.sessionStorage.removeItem('session')
+  const session = window.localStorage.removeItem('session')
   const deleteNagging = e => {
     if (window.confirm(`This operation will distroy the nagging.`)) {
       deleteNaggingOps({ variables: { uuid } })

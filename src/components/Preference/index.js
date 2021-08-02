@@ -33,7 +33,7 @@ const LOGOUT_FROM_ANYHWHERE = gql`mutation logoutFromAnywhere{
 
 function Preference() {
   let history = useHistory()
-  const session = window.sessionStorage.getItem('session')
+  const session = window.localStorage.getItem('session')
   let profileQuery = useQuery(GET_PROFILE)
   const profile = useState({
     username: '',
@@ -64,7 +64,7 @@ function Preference() {
     onError: e => toast(`Cannot logout: ${e.message}`),
     onCompleted: e => {
       toast(`Logged out safely.`)
-      window.sessionStorage.removeItem('session')
+      window.localStorage.removeItem('session')
       history.push("/")
     }
   })
@@ -72,7 +72,7 @@ function Preference() {
     onError: e => toast(`Cannot logout: ${e.message}`),
     onCompleted: e => {
       toast(`Logged out safely. If necessery, change your password asap.`)
-      window.sessionStorage.removeItem('session')
+      window.localStorage.removeItem('session')
       history.push("/")
     }
   })

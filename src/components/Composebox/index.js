@@ -13,7 +13,7 @@ const POST = gql`mutation newNagging($content: String!){
 }`
 
 function Composebox() {
-  const session = window.sessionStorage.getItem('session')
+  const session = window.localStorage.getItem('session')
   const text = React.useState(0)
   const focusOn = e => {
     autosize(e.target)

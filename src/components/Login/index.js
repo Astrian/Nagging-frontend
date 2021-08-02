@@ -18,7 +18,7 @@ function Login() {
     onError: e => toast(`Cannot login: ${e.message}`),
     onCompleted: e => {
       toast(`Logged in.`)
-      window.sessionStorage.setItem("session", `${e.login.uuid}, ${e.login.key}`)
+      window.localStorage.setItem("session", `${e.login.uuid}, ${e.login.key}`)
       history.push("/")
     }
   })
