@@ -5,7 +5,6 @@ import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './index.scss'
 import { toast } from "react-toastify"
-import { useCookies } from 'react-cookie'
 import { useHistory } from 'react-router-dom'
 import {Helmet} from "react-helmet"
 
@@ -54,14 +53,14 @@ function SingalNagging() {
       history.push("/")
     }
   })
-  const [cookies] = useCookies(['session'])
+  const session = window.sessionStorage.removeItem('session')
   const deleteNagging = e => {
     if (window.confirm(`This operation will distroy the nagging.`)) {
       deleteNaggingOps({ variables: { uuid } })
     }
   }
   let deleteBtn = ''
-  if (cookies.session) deleteBtn = (<span>&middot; <span className='deletebtn' onClick={deleteNagging}>Delete this nagging</span></span>)
+  if (session) deleteBtn = (<span>&middot; <span className='deletebtn' onClick={deleteNagging}>Delete this nagging</span></span>)
   return (<>
     <Helmet>
       <title>{author[0].fullname}'s Nagging</title>

@@ -6,7 +6,10 @@ import { toast } from 'react-toastify'
 import { useHistory } from 'react-router-dom'
 
 const LOGIN = gql`mutation login($username: String!, $password: String!){
-  login(username: $username, password: $password)
+  login(username: $username, password: $password) {
+    key,
+    uuid
+  }
 }`
 
 function Login() {
@@ -15,6 +18,7 @@ function Login() {
     onError: e => toast(`Cannot login: ${e.message}`),
     onCompleted: e => {
       toast(`Logged in.`)
+      window.sessionStorage.setItem("session", `${e.login.uuid}, ${e.login.key}`)
       history.push("/")
     }
   })

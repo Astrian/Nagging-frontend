@@ -1,7 +1,6 @@
 import React from 'react'
 import './index.scss'
 import {Row, Col, Form, Button} from 'react-bootstrap'
-import {useCookies} from 'react-cookie'
 import autosize from 'autosize'
 import { gql, useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
@@ -14,7 +13,7 @@ const POST = gql`mutation newNagging($content: String!){
 }`
 
 function Composebox() {
-  const [cookies] = useCookies(['session'])
+  const session = window.sessionStorage.getItem('session')
   const text = React.useState(0)
   const focusOn = e => {
     autosize(e.target)
@@ -33,7 +32,7 @@ function Composebox() {
     e.target.reset()
   }
   let postBtn = text[0] ? <Button type='submit'>Post</Button> : ''
-  if (cookies.session) return (<>
+  if (session) return (<>
     <Row className='justify-content-md-center'>
       <Col lg="6" className='Postbox'>
         <Form onSubmit={submitOn}>

@@ -3,7 +3,6 @@ import './index.scss'
 import {Row, Col, Form, Button} from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useCookies } from 'react-cookie'
 import { gql, useMutation, useQuery } from '@apollo/client'
 
 const EDIT_PROFILE = gql`mutation editProfile($username: String, $fullname: String, $bio: String){
@@ -34,7 +33,7 @@ const LOGOUT_FROM_ANYHWHERE = gql`mutation logoutFromAnywhere{
 
 function Preference() {
   let history = useHistory()
-  const [cookies] = useCookies(['session'])
+  const session = window.sessionStorage.getItem('session')
   let profileQuery = useQuery(GET_PROFILE)
   const profile = useState({
     username: '',
@@ -65,6 +64,7 @@ function Preference() {
     onError: e => toast(`Cannot logout: ${e.message}`),
     onCompleted: e => {
       toast(`Logged out safely.`)
+      window.sessionStorage.removeItem('session')
       history.push("/")
     }
   })
@@ -72,6 +72,7 @@ function Preference() {
     onError: e => toast(`Cannot logout: ${e.message}`),
     onCompleted: e => {
       toast(`Logged out safely. If necessery, change your password asap.`)
+      window.sessionStorage.removeItem('session')
       history.push("/")
     }
   })
@@ -101,7 +102,7 @@ function Preference() {
     else logoutOps()
   }
 
-  if (cookies.session) {
+  if (session) {
     return (<>
       <Row className='justify-content-md-center preference'>
         <Col lg="6">
