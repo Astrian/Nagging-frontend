@@ -25,6 +25,13 @@ const CHANGE_PASSWORD = gql`mutation changePassword($oriPwd: String!, $newPwd: S
   changePassword(oriPwd: $oriPwd, newPwd: $newPwd)
 }`
 
+const LOGOUT = gql`mutation logout{
+  logout
+}`
+const LOGOUT_FROM_ANYHWHERE = gql`mutation logoutFromAnywhere{
+  logoutFromAnywhere
+}`
+
 function Preference() {
   let history = useHistory()
   const [cookies] = useCookies(['session'])
@@ -54,6 +61,20 @@ function Preference() {
       toast(`Password changed.`)
     }
   })
+  const [logoutOps] = useMutation(LOGOUT, {
+    onError: e => toast(`Cannot logout: ${e.message}`),
+    onCompleted: e => {
+      toast(`Logged out safely.`)
+      history.push("/")
+    }
+  })
+  const [logoutFromAnywhere] = useMutation(LOGOUT_FROM_ANYHWHERE, {
+    onError: e => toast(`Cannot logout: ${e.message}`),
+    onCompleted: e => {
+      toast(`Logged out safely. If necessery, change your password asap.`)
+      history.push("/")
+    }
+  })
 
   const submitProfile = e => {
     e.preventDefault()
@@ -72,6 +93,12 @@ function Preference() {
     }
     if (!variables.oriPwd || !variables.newPwd) return toast(`You must confirm your original password, and set a new password to continue.`)
     changePasswordOps({ variables })
+  }
+  const logout = e => {
+    e.preventDefault()
+    const isRevokeAll = e.target[0].checked
+    if(isRevokeAll) logoutFromAnywhere()
+    else logout()
   }
 
   if (cookies.session) {
@@ -123,15 +150,19 @@ function Preference() {
             <p className='title'>Session management</p>
             <p className='description'>Logout from this browser or all of your sessions.</p>
             <p>You can logout from this browser here. If you are using a sharing computer, please logout from here after complete your operation.</p>
-            <Button>Logout From this browser</Button>
-            <p>If you are suspecting that someone has hacked into your account, please revoke all of your login sessions. Re-login is required in this browser after revoke.</p>
-            <Button>Revoke all sessions, and logout from this browser</Button>
+            <p>If you are suspecting that someone has hacked into your account, please revoke all of your login sessions. Changing password is also recommanded.</p>
+            <Form onSubmit={logout}>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Also revoke my all session." />
+              </Form.Group>
+              <Button type='submit'>Logout From this browser</Button>
+            </Form>
           </div>
         </Col>
       </Row>
     </>)
   } else {
-    history.go('/login')
+    history.push("/login")
     toast('You must login first.')
   }
 }
