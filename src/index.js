@@ -13,14 +13,14 @@ import { ToastContainer } from "react-toastify"
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  StaticRouter
+  Route
 } from "react-router-dom";
 import { ApolloProvider } from '@apollo/client'
 import client from './extentions/apollo'
 import Preference from './components/Preference'
 import Signup from './components/Signup'
 import './index.scss'
+import {Helmet} from "react-helmet"
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -32,16 +32,35 @@ let frame = (<React.StrictMode>
     <Container>
       <Router>
         <Switch>
-          <Route path='/createaccount'><Signup /></Route>
-          <Route path='/preference'><Preference /></Route> {/* Preference */}
+          <Route path='/createaccount'> {/* Sign up */}
+            <Helmet>
+              <title>Create an account</title>
+            </Helmet>
+            <Signup />
+          </Route>
+          <Route path='/preference'>
+            <Helmet>
+              <title>Preference</title>
+            </Helmet>
+            <Preference />
+          </Route> {/* Preference */}
           <Route path='/naggings/:uuid' exact> {/* Nagging Detail */}
+            <Helmet>
+              <title>Nagging Detail</title>
+            </Helmet>
             <SingalNagging />
             <ProfileStyleB />
           </Route>
           <Route path='/Login'> {/* Login page */}
+            <Helmet>
+              <title>Login</title>
+            </Helmet>
             <Login />
           </Route>
           <Route path='/' exact> {/* Homepage */}
+            <Helmet>
+              <title>Nagging</title>
+            </Helmet>
             <ProfileStyleA />
             <Composebox />
             <NaggingList />

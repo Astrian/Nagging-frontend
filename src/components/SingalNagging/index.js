@@ -7,6 +7,7 @@ import './index.scss'
 import { toast } from "react-toastify"
 import { useCookies } from 'react-cookie'
 import { useHistory } from 'react-router-dom'
+import {Helmet} from "react-helmet"
 
 const FETCH_NAGGING = gql`query singalNagging($uuid: String!) {
   signalNagging(uuid: $uuid) {
@@ -28,6 +29,10 @@ function SingalNagging() {
   const history = useHistory()
   const content = useState('Loading this nagging...')
   const time = useState(Date.parse(new Date()))
+  const author = useState({
+    uuid: '',
+    fullname: 'Someone'
+  })
   let uuid = useParams().uuid
   useQuery(FETCH_NAGGING, {
     variables: {
@@ -36,6 +41,7 @@ function SingalNagging() {
     onCompleted: e => {
       content[1](e.signalNagging.content)
       time[1](e.signalNagging.time)
+      author[1](e.signalNagging.author)
     },
     onError: e => {
       toast(`Cannot fetch the nagging: ${e.message}`)
@@ -56,12 +62,18 @@ function SingalNagging() {
   }
   let deleteBtn = ''
   if (cookies.session) deleteBtn = (<span>&middot; <span className='deletebtn' onClick={deleteNagging}>Delete this nagging</span></span>)
-  return (<Row className='justify-content-md-center'>
-    <Col xl="6" className='singalNagging'>
-      <p className='content'>{content[0]}</p>
-      <div className='secondary'><Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment> {deleteBtn}</div>
-    </Col>
-  </Row>)
+  return (<>
+    <Helmet>
+      <title>{author[0].fullname}'s Nagging</title>
+      <meta name="description" content={content[0]} />
+    </Helmet>
+    <Row className='justify-content-md-center'>
+      <Col xl="6" className='singalNagging'>
+        <p className='content'>{content[0]}</p>
+        <div className='secondary'><Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment> {deleteBtn}</div>
+      </Col>
+    </Row>
+  </>)
 }
 
 export default SingalNagging

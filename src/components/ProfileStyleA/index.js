@@ -3,6 +3,7 @@ import {Row, Col} from 'react-bootstrap'
 import { gql, useQuery } from "@apollo/client"
 import './index.scss'
 import { toast } from "react-toastify"
+import {Helmet} from "react-helmet"
 
 const FETCH_USER = gql`query user {
   user {
@@ -29,7 +30,11 @@ function ProfileStyleA() {
     }, onError: e => {
       toast(`Cannot fetch user profile: ${e.message}`)
     }})
-  return (
+  return (<>
+    <Helmet>
+      <title>{user[0].fullname}'s Naggings</title>
+      <meta name="description" content={`See that ${user[0].fullname} speaked in here.`} />
+    </Helmet>
     <Row className='justify-content-md-center'>
       <Col lg="4" className='profile'>
         <img className='avatar' alt='User avatar' src={user[0].avatar} />
@@ -38,7 +43,7 @@ function ProfileStyleA() {
         <p className='secondary'>{user[0].naggingCount ? user[0].naggingCount : 'Loading'} naggings</p>
       </Col>
     </Row>  
-  )
+  </>)
 }
 
 export default ProfileStyleA
