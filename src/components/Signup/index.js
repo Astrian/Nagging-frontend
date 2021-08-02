@@ -15,7 +15,7 @@ function Signup() {
     onError: e => toast(`Cannot create account: ${e.message}`),
     onCompleted: e => {
       toast(`🎉 Great! Your account is created. Let's try login!`)
-      history.push("/")
+      history.push("/login")
     }
   })
   const submitForm = e => {
