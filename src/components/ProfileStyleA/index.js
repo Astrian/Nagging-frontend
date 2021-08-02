@@ -1,50 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Row, Col} from 'react-bootstrap'
-import { gql } from "@apollo/client"
-import apollo from '../../extentions/apollo'
+import { gql, useQuery } from "@apollo/client"
 import './index.scss'
 import { toast } from "react-toastify"
 
-class ProfileStyleA extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-    this.state.user = {
-      avatar: `${process.env.PUBLIC_URL}/defaultavatar.jpg`,
-      fullname: `John Appleseed`,
-      username: `Username`,
-      bio: ``,
-      naggingCount: 0
-    }
+const FETCH_USER = gql`query user {
+  user {
+    uuid,
+    username,
+    fullname,
+    bio,
+    avatar,
+    naggingCount
   }
-  componentDidMount() {
-    // Fetch naggings list
-    apollo.query({ query: gql`
-      query user {
-        user {
-          uuid,
-          username,
-          fullname,
-          bio,
-          avatar,
-          naggingCount
-        }
-      }
-    `}).then(res => this.setState({user: res.data.user}))
-    .catch(e => { toast(`Error occured when fetching naggings: ${e.message}`) })
-  }
-  render() {
-    return (
-      <Row className='justify-content-md-center'>
-        <Col lg="4" className='profile'>
-          <img className='avatar' alt='User avatar' src={this.state.user.avatar} />
-          <p className='primary'>{this.state.user.fullname}</p>
-          <p className='secondary'>{this.state.user.bio || `Yet another new Nagging space.`}</p>
-          <p className='secondary'>{this.state.user.naggingCount} naggings</p>
-        </Col>
-      </Row>  
-    )
-  }
+}`
+
+function ProfileStyleA() {
+  const user = useState({
+    avatar: `${process.env.PUBLIC_URL}/defaultavatar.jpg`,
+    fullname: `John Appleseed`,
+    username: `Username`,
+    bio: ``,
+    naggingCount: 0
+  })
+  useQuery(FETCH_USER, {
+    onCompleted: e => {
+      user[1](e.user)
+    }, onError: e => {
+      toast(`Cannot fetch user profile: ${e.message}`)
+    }})
+  return (
+    <Row className='justify-content-md-center'>
+      <Col lg="4" className='profile'>
+        <img className='avatar' alt='User avatar' src={user[0].avatar} />
+        <p className='primary'>{user[0].fullname}</p>
+        <p className='secondary'>{user[0].bio || `Yet another new Nagging space.`}</p>
+        <p className='secondary'>{user[0].naggingCount ? user[0].naggingCount : 'Loading'} naggings</p>
+      </Col>
+    </Row>  
+  )
 }
 
 export default ProfileStyleA
