@@ -18,6 +18,7 @@ import {
 import { ApolloProvider } from '@apollo/client'
 import client from './extentions/apollo'
 import Preference from './components/Preference'
+import Signup from './components/Signup'
 
 if (typeof window !== "undefined") {
   injectStyle();
@@ -29,7 +30,8 @@ let frame = (<React.StrictMode>
     <Container>
       <Router>
         <Switch>
-          <Route path='/preference'><Preference></Preference></Route> {/* Preference */}
+          <Route path='/createaccount'><Signup /></Route>
+          <Route path='/preference'><Preference /></Route> {/* Preference */}
           <Route path='/naggings/:uuid' exact> {/* Nagging Detail */}
             <SingalNagging />
             <ProfileStyleB />
