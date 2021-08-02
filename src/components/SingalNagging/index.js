@@ -1,41 +1,45 @@
-import React from 'react'
-import { withRouter } from "react-router-dom";
-import apollo from '../../extentions/apollo'
-import { gql } from "@apollo/client"
+import React, {useState} from 'react'
+import { useParams } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client"
 import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './index.scss'
 import { toast } from "react-toastify"
 
-class SingalNagging extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      content: 'Loading this nagging...',
-      time: Date.parse(new Date()),
-      uuid: this.props.match.params.uuid
+const FETCH_NAGGING = gql`query singalNagging($uuid: String!) {
+  signalNagging(uuid: $uuid) {
+    uuid,
+    content,
+    time,
+    author {
+      uuid,
+      fullname
     }
   }
-  componentDidMount() {
-    apollo.query({ query: gql`
-    query singalNagging {
-      signalNagging(uuid: "${this.props.match.params.uuid}") {
-        uuid,
-        content,
-        time
-      }
+}`
+
+function SingalNagging() {
+  const content = useState('Loading this nagging...')
+  const time = useState(Date.parse(new Date()))
+  let uuid = useParams().uuid
+  useQuery(FETCH_NAGGING, {
+    variables: {
+      uuid
+    },
+    onCompleted: e => {
+      content[1](e.signalNagging.content)
+      time[1](e.signalNagging.time)
+    },
+    onError: e => {
+      toast(`Cannot fetch the nagging: ${e.message}`)
     }
-    ` }).then(res => this.setState({uuid: res.data.signalNagging.uuid, content: res.data.signalNagging.content, time: res.data.signalNagging.time }))
-    .catch(e => toast(`Error occured when fetching nagging: ${e.message}`))
-  }
-  render() {
-    return (<Row className='justify-content-md-center'>
-      <Col xl="6" className='singalNagging'>
-        <p className='content'>{this.state.content}</p>
-        <Moment format='YYYY/MM/DD HH:mm'>{this.state.time}</Moment>
-      </Col>
-    </Row>)
-  }
+  })
+  return (<Row className='justify-content-md-center'>
+    <Col xl="6" className='singalNagging'>
+      <p className='content'>{content[0]}</p>
+      <Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment>
+    </Col>
+  </Row>)
 }
 
-export default withRouter(SingalNagging)
+export default SingalNagging
