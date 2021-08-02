@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { gql, useQuery } from "@apollo/client"
 import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
