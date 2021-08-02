@@ -16,7 +16,8 @@ const FETCH_NAGGING = gql`query singalNagging($uuid: String!) {
     time,
     author {
       uuid,
-      fullname
+      fullname,
+      avatar
     }
   }
 }`
@@ -31,7 +32,8 @@ function SingalNagging() {
   const time = useState(Date.parse(new Date()))
   const author = useState({
     uuid: '',
-    fullname: 'Someone'
+    fullname: 'Someone',
+    avatar: ''
   })
   let uuid = useParams().uuid
   useQuery(FETCH_NAGGING, {
@@ -54,7 +56,7 @@ function SingalNagging() {
       history.push("/")
     }
   })
-  const session = window.localStorage.removeItem('session')
+  const session = window.localStorage.getItem('session')
   const deleteNagging = e => {
     if (window.confirm(`This operation will distroy the nagging.`)) {
       deleteNaggingOps({ variables: { uuid } })
@@ -66,6 +68,12 @@ function SingalNagging() {
     <Helmet>
       <title>{author[0].fullname}'s Nagging</title>
       <meta name="description" content={content[0]} />
+      <meta property="og:title" content={`${author[0].fullname}'s Nagging`} />
+      <meta property="og:description" content={content[0]} />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" content={`${process.env.REACT_APP_DOMAIN}/naggings/${uuid}`} />
+      <meta property="og:image" content={author[0].avatar} />
+      <meta name="twitter:card" content="summary" />
     </Helmet>
     <Row className='justify-content-md-center'>
       <Col xl="6" className='singalNagging'>
