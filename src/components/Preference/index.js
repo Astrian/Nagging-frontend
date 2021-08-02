@@ -98,7 +98,7 @@ function Preference() {
     e.preventDefault()
     const isRevokeAll = e.target[0].checked
     if(isRevokeAll) logoutFromAnywhere()
-    else logout()
+    else logoutOps()
   }
 
   if (cookies.session) {
