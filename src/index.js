@@ -30,6 +30,9 @@ let frame = (<React.StrictMode>
   <ApolloProvider client={client}>
     <ToastContainer position="top-right" autoClose={3000} hideProgressBar newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     <Container>
+      <Helmet>
+        <meta property='og:site_name' content='Nagging' />
+      </Helmet>
       <Router>
         <Switch>
           <Route path='/createaccount'> {/* Sign up */}
