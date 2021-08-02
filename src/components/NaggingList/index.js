@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { gql, useQuery } from "@apollo/client"
 import {Row, Col} from 'react-bootstrap'
 import Moment from 'react-moment'
@@ -19,24 +19,18 @@ const FETCH_NAGGINGS = gql`query naggings($pager: Int){
 
 function NaggingList() {
   const pager = useState(0)
-  const loading = useState(true)
   const next = useState(false)
   const naggings = useState([])
   const fetchNaggings = useQuery(FETCH_NAGGINGS, {variables: {pager: pager[0]},
     onCompleted: e => {
       naggings[1](naggings[0].concat(e.naggings.list))
-      loading[1](false)
       next[1](e.naggings.next)
-    }, onError: e => {
-      toast(`Cannot fetch naggings: ${e.message}`)
     }})
+  if (fetchNaggings.error) {
+    toast(`Cannot fetch naggings: ${fetchNaggings.error.message}`)
+  }
   const fetchMore = e => {
-    loading[1](true)
     pager[1](pager[0] + 1)
-    fetchNaggings.fetchMore({ variables: {pager: pager[0]} }).catch(e => {
-      toast(`Cannot fetch naggings: ${e.message}`)
-      loading[1](false)
-    })
   }
   let naggingList = naggings[0].map((nagging) => {
     return (
@@ -47,7 +41,7 @@ function NaggingList() {
     )
   })
   let nextCom = (<div></div>)
-  if (!loading[0]) {
+  if (!fetchNaggings.loading) {
     if (next[0]) {
       nextCom = (<div className='next'><span className='nextTrigger' onClick={fetchMore}>Click here to load more</span></div>)
     } else {
