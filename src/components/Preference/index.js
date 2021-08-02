@@ -38,8 +38,21 @@ function Preference() {
     }
   })
 
+  const [editProfile] = useMutation(EDIT_PROFILE, {
+    onError: e => toast(`Cannot edit your profile: ${e.message}`),
+    onCompleted: e => {
+      toast(`Profile edited`)
+    }
+  })
+
   const submitProfile = e => {
     e.preventDefault()
+    const variables ={
+      username: e.target[0].value,
+      fullname: e.target[1].value,
+      bio: e.target[2].value,
+    }
+    editProfile({ variables })
   }
 
   if (cookies.session) {
@@ -89,8 +102,8 @@ function Preference() {
           
           <div className='section'> { /* Logout */}
             <p className='title'>Session management</p>
-            <p className='description'>Logout from this browser or all of your session.</p>
-            <p>You can logout from this browser here. If you are using a sharing computer, please logout from here after completed your operation.</p>
+            <p className='description'>Logout from this browser or all of your sessions.</p>
+            <p>You can logout from this browser here. If you are using a sharing computer, please logout from here after complete your operation.</p>
             <Button>Logout From this browser</Button>
             <p>If you are suspecting that someone has hacked into your account, please revoke all of your login session. Re-login is required in this browser after revoke.</p>
             <Button>Revoke all session, and logout from this browser</Button>
