@@ -79,7 +79,7 @@ function SingalNagging() {
     </Helmet>
     <Row className='justify-content-md-center'>
       <Col xl="6" className='singalNagging'>
-        <div className='content'><ReactMarkdown remarkPlugins={[remarkBreaks, gfm]}>{content[0]}</ReactMarkdown></div>
+        <div className='content'><ReactMarkdown linkTarget='_blank' remarkPlugins={[remarkBreaks, gfm]}>{content[0]}</ReactMarkdown></div>
         <div className='secondary'><Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment> {deleteBtn}</div>
       </Col>
     </Row>

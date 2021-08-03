@@ -39,7 +39,7 @@ function NaggingList() {
     return (
       <div className='naggingCell' key={nagging.uuid}>
         <Link className='timestamp' to={`/naggings/${nagging.uuid}`}><Moment fromNow>{nagging.time}</Moment></Link>
-        <div className='content'><ReactMarkdown remarkPlugins={[remarkBreaks, gfm]}>{nagging.content}</ReactMarkdown></div>
+        <div className='content'><ReactMarkdown linkTarget='_blank' remarkPlugins={[remarkBreaks, gfm]}>{nagging.content}</ReactMarkdown></div>
       </div>
     )
   })
