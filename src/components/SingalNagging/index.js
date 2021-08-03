@@ -8,6 +8,8 @@ import { toast } from "react-toastify"
 import { useHistory } from 'react-router-dom'
 import {Helmet} from "react-helmet"
 import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
+import gfm from 'remark-gfm'
 
 const FETCH_NAGGING = gql`query singalNagging($uuid: String!) {
   signalNagging(uuid: $uuid) {
@@ -77,7 +79,7 @@ function SingalNagging() {
     </Helmet>
     <Row className='justify-content-md-center'>
       <Col xl="6" className='singalNagging'>
-        <div className='content'><ReactMarkdown>{content[0]}</ReactMarkdown></div>
+        <div className='content'><ReactMarkdown remarkPlugins={[remarkBreaks, gfm]}>{content[0]}</ReactMarkdown></div>
         <div className='secondary'><Moment format='YYYY/MM/DD HH:mm'>{time[0]}</Moment> {deleteBtn}</div>
       </Col>
     </Row>
