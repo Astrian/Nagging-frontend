@@ -8,8 +8,13 @@
   src: local('Roboto Mono'), url('./fonts/Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'OpenMoji';
+  src: url('./fonts/OpenMoji-Color.ttf');
+}
+
 .container {
-  font-family: 'RobotoMono';
+  font-family: 'RobotoMono', 'OpenMoji';
 }
 
 .footer {
