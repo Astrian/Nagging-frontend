@@ -1,5 +1,5 @@
 div.naggingCell {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   .timestamp {
     font-size: 14px;
     margin-bottom: 5px;
@@ -29,6 +29,10 @@ div.naggingCell {
       hyphens: auto;
     }
   }
+}
+
+div.naggingCell:last-child {
+  margin-bottom: 30px;
 }
 
 div.next {
