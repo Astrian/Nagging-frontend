@@ -69,7 +69,7 @@ function SingalNagging() {
   return (<>
     <Helmet>
       <title>{author[0].fullname}'s Nagging</title>
-      <meta name="description" content={content[0]} />
+      <meta name="description" content={(content[0]).replace(/!\[.*\]\(.*\)/g, '[Image]')} />
       <meta property="og:title" content={`${author[0].fullname}'s Nagging`} />
       <meta property="og:description" content={content[0]} />
       <meta property="og:type" content="article" />
